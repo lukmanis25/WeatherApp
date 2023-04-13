@@ -1,0 +1,29 @@
+.searchBar {
+    padding: 0.5rem 0.5rem 1rem;
+
+    .searchBar__form {
+        display: flex;
+        justify-content: space-between;
+
+        .searchBar__text {
+            max-width: 60%;
+            background-color: $button-color;
+            color: $font-color;
+            font-size: 1rem;
+            border: 1px solid $bordercolor;
+            border-radius: 10px;
+            flex-grow: 1;
+            margin: 0 1rem;
+            padding:0.75rem;
+            outline: none;
+        }
+        .searchBar__text::placeholder {
+            color: $fadecolor;
+        }
+        .searchBar__text:focus-within,
+        .searchBar__text:hover {
+            box-shadow: 4px 2px 5px $text-shadow-color;
+        }
+    }
+
+}

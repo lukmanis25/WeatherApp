@@ -1,0 +1,55 @@
+.currentForecast {
+    font-size: 1rem;
+    @include mediaQuery(768px) {
+        font-size: 16px;
+    }
+    .currentForecast__container {
+        display:flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+    }
+    .currentForecast__image {
+        font-size: 12em;
+        max-height: 12rem;
+    }
+    .currentForecast__temp {
+        font-size: 5em;
+        font-weight: 900;
+        max-height: 6rem;
+        
+    }
+    .currentForecast__temp span{
+        float: right;
+        font-size: 0.7em;
+        font-weight: normal;
+        color: $fadecolor;
+        padding-top: 0.2em;
+    }
+    .currentForecast__weather {
+        font-size: 2em;
+    }
+    .currentForecast__date {
+        font-size: 0.7em;
+        color: $fadecolor;
+    }
+
+    .currentForecast__metrics {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .currentForecast__metrics div{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+    }
+    .currentForecast__metrics .metricName{
+        font-size: 0.7em;
+        color: $fadecolor;
+    }
+}
+

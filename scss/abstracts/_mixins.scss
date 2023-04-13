@@ -1,0 +1,12 @@
+@mixin flexCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin mediaQuery($size){
+    @media only screen and (min-width: $size) 
+    {
+        @content;    
+    }
+}

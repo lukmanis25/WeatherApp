@@ -1,0 +1,15 @@
+.weekForecast{
+    flex-grow: 1;
+    @include flexCenter;
+    justify-content: space-evenly;
+    color: $font-color;
+    padding: 0.5rem 0;
+
+    .weekForecast_oneDay {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+}
