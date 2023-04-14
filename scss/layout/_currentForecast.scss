@@ -1,8 +1,9 @@
 .currentForecast {
+    flex-grow: 3;
     font-size: 1rem;
-    @include mediaQuery(768px) {
-        font-size: 16px;
-    }
+        @include mediaQuery(768px) {
+            font-size: 16px;
+        }
     .currentForecast__container {
         display:flex;
         align-items: center;
