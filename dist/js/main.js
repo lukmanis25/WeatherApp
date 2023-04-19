@@ -1,4 +1,12 @@
+import LocationData from "./LocationData.js";
+import WeatherData from "./WeatherData.js";
+import { addLoadAnimation, displayError } from "./domBuilder.js";
 
+
+/* APP INITIALIZATION */
+
+const weatherData = new WeatherData()
+const locationData = new LocationData()
 
 const initApp = () => {
     // EVENTS
@@ -25,16 +33,26 @@ document.addEventListener("DOMContentLoaded", initApp);
 
 
 
-function loadCurrentLocation(event) {
+/* EVENT FUNCTIONS */
+
+async function loadCurrentLocation(event) {
     //add load animation
+    const mapIcon = document.querySelector(".fa-map-marker-alt");
+    addLoadAnimation(mapIcon)
 
     //check if location is allowed
-
-    //load location
+    if (!navigator?.geolocation) return locationError();
+    
+    //load location (+update in localData), await and load funciton to wait for localData update
+    const load = () => {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+        })
+    }
+    await load().then(position => locationSuccess(position)).catch(err => locationError(err))
 
     //set new location to localstorage
-
-    //update locationData
+    localStorage.setItem("defaultWeatherLocation", JSON.stringify(locationData.getCoordsObject()));
 
     //load weather depends on locationData
     //save weather to weatherData
@@ -63,3 +81,21 @@ function submitNewLocation(event) {
     //build "weekForecast"
 
 }
+
+/* HANDLERS */
+
+//save location in locationData
+const locationSuccess = (position) => {
+    //object to save
+    const coords = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+        name: `Lat:${position.coords.latitude} Long:${position.coords.longitude}`
+    };
+    locationData.setCoordsObject(coords)
+};
+
+const locationError = (errObj) => {
+    const errMsg = errObj ? errObj.message : "Geolocation not supported";
+    displayError(errMsg);
+};

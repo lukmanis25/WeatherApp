@@ -5,6 +5,21 @@ export default class LocationData {
         this._lon = null;
       }
 
+      //set name lat and lon with object coords {name, lot, lan}
+      setCoordsObject = (coords) => {
+        this._name = coords.name;
+        this._lat = coords.lat;
+        this._lon = coords.lon;
+      };
+
+      getCoordsObject = () => {
+        return {
+          name: this._name,
+          lat: this._lat,
+          lon: this._lon
+        }
+      }
+
       getName() {
         return this._name;
       }
