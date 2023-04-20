@@ -1,8 +1,8 @@
 import LocationData from "./LocationData.js";
 import WeatherData from "./WeatherData.js";
 import { addLoadAnimation, displayError } from "./domBuilder.js";
-
-
+import { saveLocationInLocalStorage } from "./localStorage.js";
+import { getWeatherAPIFromLocation } from "./weatherAPI.js";
 /* APP INITIALIZATION */
 
 const weatherData = new WeatherData()
@@ -52,10 +52,13 @@ async function loadCurrentLocation(event) {
     await load().then(position => locationSuccess(position)).catch(err => locationError(err))
 
     //set new location to localstorage
-    localStorage.setItem("defaultWeatherLocation", JSON.stringify(locationData.getCoordsObject()));
+    saveLocationInLocalStorage(locationData)
 
     //load weather depends on locationData
+    const weatherAPIObject = await getWeatherAPIFromLocation(locationData)
+
     //save weather to weatherData
+    weatherData.setWeather(weatherAPIObject)
 
     //build "currentForecast" 
     //build "weekForecast"
