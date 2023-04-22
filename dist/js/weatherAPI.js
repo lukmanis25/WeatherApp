@@ -1,7 +1,7 @@
 const WEATHER_API_KEY = "2e6674c12f4ccd8177c688b8f1d6ac1b"
 const UNITS = "metric"
 
-//GET weather from location
+//GET weather from location (40 forecasts, each per 3hour, forecast for 5 days)
 export const getWeatherAPIFromLocation = async (locationObj) => {
         const lat = locationObj.getLat();
         const lon = locationObj.getLon();
