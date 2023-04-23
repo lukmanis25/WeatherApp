@@ -1,6 +1,6 @@
 import LocationData from "./LocationData.js";
 import WeatherData from "./WeatherData.js";
-import { addLoadAnimation, displayError } from "./domBuilder.js";
+import { addLoadAnimation, displayError, refresh } from "./domBuilder.js";
 import { saveLocationInLocalStorage } from "./localStorage.js";
 import { getWeatherAPIFromLocation } from "./weatherAPI.js";
 /* APP INITIALIZATION */
@@ -62,6 +62,7 @@ async function loadCurrentLocation(event) {
 
     //build "currentForecast" 
     //build "weekForecast"
+    refresh(weatherData.getWeatherObj())
 }
 
 function submitNewLocation(event) {

@@ -1,6 +1,6 @@
 const FORECAST_DAY_NUMBER = 5
 const FORECAST_ARRAY_LENGTH = 40
-const FIVE_DAYS_FORECAST_HOUR = 15 //for 5 days forecasr
+const FIVE_DAYS_FORECAST_HOUR = 15 //hour to check for 5 days forecast
 const weekDays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
 
@@ -58,7 +58,6 @@ export default class WeatherData {
 
     //set using object from weather api
     setWeather(weatherAPIObj) {
-        console.log(weatherAPIObj)
         this._weatherType = weatherAPIObj['list']['0']['weather']['0']['description']
         this._temp = weatherAPIObj['list']['0']['main']['temp']
         this._icon = weatherAPIObj['list']['0']['weather']['0']['icon']
@@ -68,6 +67,19 @@ export default class WeatherData {
         this._city = weatherAPIObj['city']['name']
         this.setDate(weatherAPIObj['list']['0']['dt_txt'])
         this.setNextFiveDaysWeather(weatherAPIObj)
-        console.log(this)
+    }
+
+    getWeatherObj() {
+        return {
+            weatherType : this._weatherType, 
+            temp : this._temp,
+            icon : this._icon,
+            wind : this._wind,
+            humidity : this._humidity,
+            pressure : this._pressure, 
+            city : this._city,
+            date : this._date,
+            nextFiveDaysWeather : this._nextFiveDaysWeather
+        }
     }
 }
