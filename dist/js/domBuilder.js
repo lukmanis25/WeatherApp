@@ -14,7 +14,6 @@ export const displayError = (msg) => {
 
 //Refresh screen
 export const refresh = (weatherObj) => {
-    console.log(weatherObj)
     //hide and clear
     toogleDisplay()
     clearDisplay()
@@ -22,6 +21,7 @@ export const refresh = (weatherObj) => {
     //TODO set bg
 
     //update DOM
+    document.getElementById("searchBar__text").value = weatherObj["city"]; //change searchbar value
     updateCurrentForecastContainer(weatherObj)
     updateCurrentForecastMetrics(weatherObj)
     updateWeekForecast(weatherObj)

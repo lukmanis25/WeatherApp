@@ -3,5 +3,5 @@ export function saveLocationInLocalStorage(locationData) {
 }
 
 export function loadLocationFromLocalStorage() {
-    //TODO
+    return JSON.parse(localStorage.getItem("defaultWeatherLocation"));
 }

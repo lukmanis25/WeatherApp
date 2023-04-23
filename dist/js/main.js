@@ -1,14 +1,24 @@
 import LocationData from "./LocationData.js";
 import WeatherData from "./WeatherData.js";
 import { addLoadAnimation, displayError, refresh } from "./domBuilder.js";
-import { saveLocationInLocalStorage } from "./localStorage.js";
-import { getWeatherAPIFromLocation } from "./weatherAPI.js";
+import { loadLocationFromLocalStorage, saveLocationInLocalStorage } from "./localStorage.js";
+import { getWeatherAPIFromLocation, getCoordsFromApi } from "./weatherAPI.js";
+
+//TODO create const module (and repair static number in domBuilder weekForecast)
+//warsaw
+const DEFAULT_LOCATION = {
+    name: 'Lat:52.237049 Long:21.017532',
+    lat: 52.237049,
+    lon: 21.017532
+}
+
+
 /* APP INITIALIZATION */
 
 const weatherData = new WeatherData()
 const locationData = new LocationData()
 
-const initApp = () => {
+const initApp = async () => {
     // EVENTS
 
     //event for location
@@ -18,14 +28,19 @@ const initApp = () => {
 
     //START SETUP 
 
-    //Check and load localstorage to locationData
+    //Check and load localstorage to locationData or load default
+    const location = loadLocationFromLocalStorage()
+    if(location) locationData.setCoordsObject(location)
+    else locationData.setCoordsObject(DEFAULT_LOCATION)
 
     //load weather depends on locationData
     //save weather to weatherData
+    const weatherAPIObject = await getWeatherAPIFromLocation(locationData)
+    weatherData.setWeather(weatherAPIObject)
 
     //build "currentForecast" 
     //build "weekForecast"
-    
+    refresh(weatherData.getWeatherObj())
   };
 
 
@@ -65,15 +80,23 @@ async function loadCurrentLocation(event) {
     refresh(weatherData.getWeatherObj())
 }
 
-function submitNewLocation(event) {
+async function submitNewLocation(event) {
     //remove default form action
-
-    //add load animation
+    event.preventDefault();
 
     //load input data
+    const entryText = document.getElementById("searchBar__text").value;
+    if (!entryText.length) return;
+
+    //add load animation
+    const locationIcon = document.querySelector(".fa-search");
+    addLoadAnimation(locationIcon);
 
     //change input(city, country...) to location(coordinates)
-    
+    //TODO repair below
+    //const coordsData = await getCoordsFromApi(entryText);
+
+
     //set new location to localstorage
 
     //update locationData
