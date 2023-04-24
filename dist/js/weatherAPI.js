@@ -10,8 +10,7 @@ export const getWeatherAPIFromLocation = async (locationObj) => {
         try {
           const weatherStream = await fetch(url);
           const weatherJson = await weatherStream.json();
-          //return weatherJson
-          //TODO return coord object
+          return weatherJson
         } catch (err) {
           console.error(err);
         } 
@@ -21,9 +20,12 @@ export const getCoordsFromApi = async (entryText) => {
         const url = `https://api.openweathermap.org/data/2.5/weather?${FLAG}=${entryText}&units=${UNITS}&appid=${WEATHER_API_KEY}`;
         const encodedUrl = encodeURI(url);
         try {
-          const dataStream = await fetch(encodedUrl);
+          const dataStream = await fetch(encodedUrl)
+          if(!dataStream.ok) return
           const jsonData = await dataStream.json();
-          return jsonData;
+          const jsonCoordData = jsonData["coord"]
+          jsonCoordData['name'] = `Lat:${jsonCoordData.lat} Long:${jsonCoordData.lon}`
+          return jsonCoordData;
         } catch (err) {
           console.error(err.stack);
         } 

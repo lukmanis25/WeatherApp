@@ -19,12 +19,13 @@
                     <i class="fas fa-sync fa-spin none"></i>
                 </button>
                 <label for="searchBar__text" class = "offscreen">Enter location</label>
-                <input id="searchBar__text"  class="searchBar__text" type="text" role="searchbox" size="40" autocomplete="off" placeholder="City, Country...">
-                <button type="submit" id="searchBar__submit" class = "searchBar__submit button" title="Submit location" aria_label = "Enter City, country etc...">
+                <input id="searchBar__text"  class="searchBar__text" type="text" role="searchbox" size="40" autocomplete="off" placeholder="City name">
+                <button type="submit" id="searchBar__submit" class = "searchBar__submit button" title="Submit location" aria_label = "City name">
                     <i class="fa fa-search"></i>
                     <i class="fa fa-sync fa-spin none"></i>
                 </button>
             </form> 
+            <p id="searchBar__error" class="searchBar__error"></p>
         </section>
         <section id="currentForecast" class = "currentForecast fade-in">
             <!-- dynamic temp html -->

@@ -5,7 +5,7 @@
 
 //Display error under searchBar and above weather icon
 export const displayError = (msg) => {
-    console.log(msg)
+    document.getElementById("searchBar__error").innerText = msg
     //TODO !!!!!!!!!!
     //add new section in html for information
     //add display error func body
@@ -18,7 +18,9 @@ export const refresh = (weatherObj) => {
     toogleDisplay()
     clearDisplay()
 
-    //TODO set bg
+    //set bg
+    const weatherClass = getWeatherClass(weatherObj["icon"])
+    setBGImage(weatherClass)
 
     //update DOM
     document.getElementById("searchBar__text").value = weatherObj["city"]; //change searchbar value
@@ -30,6 +32,34 @@ export const refresh = (weatherObj) => {
     setTimeout(toogleDisplay, 100)
 
 }
+
+const setBGImage = (weatherClass) => {
+  document.documentElement.classList.add(weatherClass);
+  document.documentElement.classList.forEach((img) => {
+    if (img !== weatherClass) document.documentElement.classList.remove(img);
+  });
+};
+
+const getWeatherClass = (icon) => {
+  const firstTwoChars = icon.slice(0, 2);
+  const lastChar = icon.slice(2);
+  const weatherLookup = {
+    "09": "snow",
+    10: "rain",
+    11: "rain",
+    13: "snow",
+    50: "fog"
+  };
+  let weatherClass;
+  if (weatherLookup[firstTwoChars]) {
+    weatherClass = weatherLookup[firstTwoChars];
+  } else if (lastChar === "d") {
+    weatherClass = "clouds";
+  } else {
+    weatherClass = "night";
+  }
+  return weatherClass;
+};
 
 const updateCurrentForecastContainer = (weatherObj) => {
     const currentForecast = document.getElementById("currentForecast");
@@ -183,6 +213,7 @@ const toogleDisplay = () => {
 }
 
 const clearDisplay = () => {
+    document.getElementById("searchBar__error").innerText = ""
     const currentForecast = document.getElementById("currentForecast")
     deleteContents(currentForecast)
     const weekForecast = document.getElementById("weekForecast");

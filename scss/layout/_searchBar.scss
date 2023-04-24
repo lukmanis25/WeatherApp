@@ -25,5 +25,10 @@
             box-shadow: 4px 2px 5px $text-shadow-color;
         }
     }
+    .searchBar__error {
+        margin-top: 3px;
+        text-align: center;
+        color: $error-color
+    }
 
 }

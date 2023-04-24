@@ -70,9 +70,8 @@ async function loadCurrentLocation(event) {
     saveLocationInLocalStorage(locationData)
 
     //load weather depends on locationData
-    const weatherAPIObject = await getWeatherAPIFromLocation(locationData)
-
     //save weather to weatherData
+    const weatherAPIObject = await getWeatherAPIFromLocation(locationData)
     weatherData.setWeather(weatherAPIObject)
 
     //build "currentForecast" 
@@ -93,25 +92,30 @@ async function submitNewLocation(event) {
     addLoadAnimation(locationIcon);
 
     //change input(city, country...) to location(coordinates)
-    //TODO repair below
-    //const coordsData = await getCoordsFromApi(entryText);
-
+    const coordsData = await getCoordsFromApi(entryText);
+    if(!coordsData) {
+        loadWeatherError()
+        return
+    }
+    //update locationData
+    locationData.setCoordsObject(coordsData)
 
     //set new location to localstorage
-
-    //update locationData
+    saveLocationInLocalStorage(locationData)
 
     //load weather depends on locationData
     //save weather to weatherData
+    const weatherAPIObject = await getWeatherAPIFromLocation(locationData)
+    weatherData.setWeather(weatherAPIObject)
 
     //build "currentForecast" 
     //build "weekForecast"
-
+    refresh(weatherData.getWeatherObj())
 }
 
 /* HANDLERS */
 
-//save location in locationData
+//save location in locationData 
 const locationSuccess = (position) => {
     //object to save
     const coords = {
@@ -124,5 +128,10 @@ const locationSuccess = (position) => {
 
 const locationError = (errObj) => {
     const errMsg = errObj ? errObj.message : "Geolocation not supported";
+    displayError(errMsg);
+};
+
+const loadWeatherError = (errObj) => {
+    const errMsg = errObj ? errObj.message : "Error in loading data, check city name";
     displayError(errMsg);
 };
